@@ -3,6 +3,7 @@ FROM centos:7
 RUN yum install -y git \
                    maven \
                    rpm-build \
+                   sudo \
     yum clean all
 
 RUN useradd builder -u 1000 -m -G users,wheel && \

@@ -3,6 +3,7 @@ FROM centos:7
 RUN yum install -y git \
                    maven \
                    rpm-build \
+		   rpm-sign \
                    sudo \
     yum clean all
 

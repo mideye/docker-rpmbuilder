@@ -1,11 +1,9 @@
 FROM centos:7
 
-RUN yum install -y git \
-                   maven \
-                   rpm-build \
-		   rpm-sign \
-                   sudo \
-    yum clean all
+RUN yum -y --setopt="tsflags=nodocs" update && \
+    yum -y --setopt="tsflags=nodocs" install git maven rpm-build rpm-sign sudo expect && \
+    yum clean all && \
+    rm -rf /var/cache/yum/
 
 RUN useradd builder -u 1000 -m -G users,wheel && \
     echo "builder ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers && \
@@ -18,6 +16,7 @@ RUN useradd builder -u 1000 -m -G users,wheel && \
     echo "%_srcrpmdir %{_topdir}"        >> /home/builder/.rpmmacros && \
     mkdir /home/builder/rpm && \
     chown -R builder /home/builder
+
 USER builder
 WORKDIR "/home/builder"
 ENV FLAVOR=rpmbuild OS=centos DIST=el7

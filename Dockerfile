@@ -1,7 +1,7 @@
 FROM centos:7
 
 RUN yum -y --setopt="tsflags=nodocs" update && \
-    yum -y --setopt="tsflags=nodocs" install git maven rpm-build rpm-sign sudo expect && \
+    yum -y --setopt="tsflags=nodocs" install git maven rpm-build rpm-sign sudo expect wget && \
     yum clean all && \
     rm -rf /var/cache/yum/
 
